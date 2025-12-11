@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Vishakha! 🎂</title>
+    <style>
+        /* BASE STYLES */
+        body {
+            font-family: sans-serif;
+            background-color: #f7f7ff;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 50px;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        /* LEFT PANEL: Made relative for positioning animations inside */
+        .left-panel {
+            flex: 1;
+            padding: 30px;
+            background-color: #fff;
+            position: relative; /* Crucial for positioning internal elements absolutely */
+            z-index: 1; /* Ensures content is above the animations */
+        }
+        
+        /* RIGHT PANEL - Animation background & container */
+        .right-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #fce4ec 0%, #e1f5fe 100%);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* CARD STYLES */
+        .photo-frame {
+            height: 250px;
+            width: 180px;
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-shadow: inset 0 0 10px rgba(255, 192, 203, 0.5);
+            position: relative;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 2; /* Ensures the photo frame is above the animation */
+        }
+        
+        /* STYLE: To make the image fill the frame */
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 8px; 
+            padding: 0;
+        }
+
+        .photo-frame h4 {
+            color: #d81b60;
+            margin: 0;
+            position: absolute;
+            top: 5px;
+            left: 15px;
+            font-weight: normal;
+            z-index: 10; 
+        }
+        .spacewish {
+            font-size: 0.9em;
+            color: #ffb74d;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: #4a148c;
+        }
+        .date {
+            font-size: 0.8em;
+            color: #999;
+            margin-bottom: 30px;
+        }
+        .message {
+            font-size: 1.0em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        .go-ahead-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #f06292;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            z-index: 2;
+        }
+        .go-ahead-button:hover {
+            background-color: #e91e63;
+        }
+        .made-with {
+            font-size: 0.7em;
+            color: #ccc;
+            margin-top: 40px;
+        }
+
+        /* --- DECORATION STYLES (Used on both panels) --- */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.1); }
+        }
+        @keyframes flame {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-2px) scale(1.05); }
+        }
+
+        .deco-element {
+            position: absolute;
+            z-index: 0; 
+            opacity: 0.7;
+        }
+
+        .deco-star {
+            width: 6px;
+            height: 6px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ffeb3b, 0 0 10px #ff9800;
+            animation: twinkle 1.8s infinite alternate;
+        }
+
+        .deco-planet {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 60% 40%, #ffc107, #ff9800);
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+            transform: rotate(15deg);
+        }
+        
+        .deco-candle {
+            width: 15px;
+            height: 60px;
+            background-color: #f8bbd0; /* Pink wax */
+            border-radius: 3px;
+        }
+        .deco-candle::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 10px;
+            background-color: #4e342e; /* Wick */
+            border-radius: 2px;
+        }
+        .deco-candle::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 15px;
+            background: radial-gradient(circle at 50% 50%, #fff9c4, #ffeb3b); /* Flame */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 8px #ffeb3b;
+            animation: flame 0.5s infinite alternate;
+        }
+        
+        /* Positions for Left Panel (L) */
+        .left-panel .deco-star:nth-child(1) { top: 10px; right: 10px; animation-delay: 0.3s; }
+        .left-panel .deco-star:nth-child(2) { top: 5%; left: 5%; width: 4px; height: 4px; animation-delay: 1.2s; }
+        .left-panel .deco-star:nth-child(3) { top: 40%; left: 30px; animation-delay: 0.8s; }
+        .left-panel .deco-planet { top: 150px; right: 20px; }
+        .left-panel .deco-candle { bottom: 20px; right: 20px; }
+
+        /* Positions for Right Panel (R) - New positions for the right side */
+        .right-panel .deco-star:nth-child(1) { top: 80px; left: 20px; animation-delay: 0s; }
+        .right-panel .deco-star:nth-child(2) { top: 60%; right: 10%; width: 8px; height: 8px; animation-delay: 0.6s; }
+        .right-panel .deco-star:nth-child(3) { bottom: 10px; left: 40%; animation-delay: 1.5s; }
+        .right-panel .deco-planet { top: 20px; left: 50%; transform: translateX(-50%) rotate(-10deg); }
+        .right-panel .deco-candle { bottom: 150px; left: 20px; }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="deco-element deco-star"></div>
+            <div class="deco-element deco-star"></div>
+            <div class="deco-element deco-star"></div>
+            <div class="deco-element deco-planet"></div>
+            <div class="deco-element deco-candle"></div>
+
+
+            <div class="photo-frame">
+                <img src="img/Place holder 5.jpg" alt="Vishakha's Photo">
+                <h4>Vishakha</h4>
+            </div>
+
+            <div class="spacewish">
+                🍌 SpaceWish
+            </div>
+            <h1>Happy Bisthday <br>vishh ✨🌟</h1>
+            <p>Frse Happy birthday vishh (ya scorpio ya bichhu 😂✨)</p>
+            <p class="date">12.12.2025 • 12 AM</p>
+            <p class="message">
+                You're truly one of the smartest and most incredible people I know. I'm grateful our paths crossed. You have the power to do anything you dream of — to build something meaningful, to create your own freedom, to make Insidrink or anything else a success. You're amazing, and I hope this year gives you everything you deserve.
+            </p>
+            <a href="memories.html" class="go-ahead-button">Go Ahead</a>
+            <p class="made-with">Made with batmans Power</p>
+        </div>
+        
+        <div class="right-panel">
+            <div class="deco-element deco-star"></div>
+            <div class="deco-element deco-star"></div>
+            <div class="deco-element deco-star"></div>
+            <div class="deco-element deco-planet"></div>
+            <div class="deco-element deco-candle"></div>
+        </div>
+    </div>
+</body>
+</html>

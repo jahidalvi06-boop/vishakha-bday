@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Final Question for Vishakha</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            /* Dark cosmic gradient background */
+            background: linear-gradient(135deg, #0f0a1e 0%, #4a148c 100%); 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- STAR ANIMATION BACKGROUND --- */
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ffeb3b;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.5); }
+        }
+        /* Star positions for a sparse, cosmic look */
+        .star:nth-child(1) { top: 10%; left: 80%; animation-delay: 0.1s; }
+        .star:nth-child(2) { top: 30%; left: 15%; animation-delay: 0.5s; }
+        .star:nth-child(3) { top: 60%; left: 50%; animation-delay: 1.2s; }
+        .star:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 0.8s; }
+        .star:nth-child(5) { top: 5%; left: 5%; animation-delay: 1.5s; }
+
+
+        .question-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            z-index: 10; 
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #fce4ec; 
+            margin-bottom: 40px;
+            /* Glowing text effect */
+            text-shadow: 0 0 5px #e91e63, 0 0 15px #e91e63;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            align-items: center;
+            /* Must be position: relative to contain the absolute 'No' button */
+            position: relative; 
+            min-height: 60px; /* Ensure there is room for button movement */
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #yes-btn {
+            background-color: #f06292; 
+            color: white;
+            z-index: 11; /* Ensure Yes button is clickable */
+        }
+        #yes-btn:hover {
+            background-color: #e91e63;
+            transform: scale(1.05);
+        }
+
+        /* --- UNCLICKABLE 'NO' BUTTON STYLES --- */
+        #no-btn {
+            background-color: #ccc;
+            color: #333;
+            position: absolute; 
+            right: -75px; 
+            transition: all 0.2s ease-out; /* Fast transition for the "run away" effect */
+            z-index: 10;
+        }
+
+        /* --- FINAL MESSAGE AREA --- */
+        #final-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: #ffeb3b; /* Yellow/Gold glow */
+            text-shadow: 0 0 10px #ff9800, 0 0 25px #ff9800;
+            animation: fadeIn 2s;
+            z-index: 15;
+            width: 90%;
+            max-width: 700px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Styling the video container for responsiveness */
+        #final-video {
+            margin-top: 30px;
+            /* Responsive wrapper for 16:9 aspect ratio */
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+        #final-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .final-message-text {
+            font-size: 0.5em;
+            margin-top: 20px;
+            line-height: 1.4;
+            color: #ffd700; /* Gold color for the secondary text */
+        }
+    </style>
+</head>
+<body>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+
+    <div class="question-box">
+        <h1>Ab tum impress hui?</h1>
+        <div class="buttons">
+            <button id="yes-btn" class="btn" onclick="revealMessage()">Yes!</button>
+            <button id="no-btn" class="btn">No :(</button>
+        </div>
+    </div>
+
+    <div id="final-message">
+        <span style="font-size: 1.2em;">🎉 HAPPY BIRTHDAY VISHAKHA! 🎉</span>
+        
+        <p class="final-message-text">
+            I knew you'd say yes! You deserve it. ab tum sunane mat lagna ya ye mat bolna ye mat kro tumne yes pe click kra h kyuki🙂😂
+        </p>
+        
+        <div id="final-video">
+            <iframe 
+                src="https://www.youtube.com/embed/rhpNOH4xgH0?autoplay=1" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const questionBox = document.querySelector('.question-box');
+        const finalMessage = document.getElementById('final-message');
+
+        // Function to move the 'No' button randomly within the bounds of the question box
+        function moveButton() {
+            const parentRect = questionBox.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            const maxX = parentRect.width - btnRect.width - 40; 
+            const maxY = parentRect.height - btnRect.height - 40; 
+
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            noBtn.style.transform = `translate(${newX - (parentRect.width / 2) + (btnRect.width / 2)}px, ${newY - (parentRect.height / 2) + (btnRect.height / 2)}px)`;
+        }
+
+        // Attach event listener to move the button on mouseover
+        noBtn.addEventListener('mouseover', moveButton);
+
+        // Function to reveal the final message when 'Yes' is clicked
+        function revealMessage() {
+            questionBox.style.display = 'none';
+            finalMessage.style.display = 'block';
+            
+            // Stop and hide the 'No' button
+            noBtn.removeEventListener('mouseover', moveButton);
+            noBtn.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
